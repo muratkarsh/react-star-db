@@ -1,0 +1,17 @@
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #fff;
+    background-color: #231f20;
+}
+
+a {
+    color: #d7d98e;
+    text-decoration: none;
+}
+
+.app__card {
+    margin: 50px 15px;
+    padding: 20px;
+    background-color: #191617;
+    border-radius: 10px;
+}

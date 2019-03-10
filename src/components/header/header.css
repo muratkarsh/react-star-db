@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.logo {
+    margin-right: 50px;
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.navigation ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.navigation li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.navigation li:last-child {
+    margin-right: 0;
+}
+
+.navigation a {
+    color: #a9d8ff;
+}

@@ -3,7 +3,9 @@ import './item-list.css'
 
 const ItemList = () => {
     return (
-        <div className='item-list'></div>
+        <div className='item-list app__card'>
+            ItemList
+        </div>
     )
 }
 

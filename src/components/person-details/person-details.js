@@ -3,7 +3,9 @@ import './person-details.css'
 
 const PersonDetails = () => {
     return (
-        <div className='person-details'></div>
+        <div className='person-details app__card'>
+            PersonDetails
+        </div>
     )
 }
 
