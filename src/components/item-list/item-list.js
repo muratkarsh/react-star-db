@@ -1,10 +1,14 @@
 import React from 'react'
-import './item-list.css'
+import './item-list.scss'
 
 const ItemList = () => {
     return (
         <div className='item-list app__card'>
-            ItemList
+            <ul className='item-list-actions'>
+                <li>Luke Skywalker</li>
+                <li>Darth Vader</li>
+                <li>R2-D2</li>
+            </ul>
         </div>
     )
 }

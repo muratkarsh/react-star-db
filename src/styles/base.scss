@@ -9,9 +9,12 @@ a {
     text-decoration: none;
 }
 
-.app__card {
-    margin: 50px 15px;
-    padding: 20px;
-    background-color: #191617;
-    border-radius: 10px;
+ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.col {
+    padding: 8px !important;
 }

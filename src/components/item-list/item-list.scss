@@ -1,0 +1,19 @@
+.item-list {
+
+  &-actions li {
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #a9d8ff;
+    background-color: rgba(0, 0, 0, .2);
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .1);
+    }
+  }
+}
