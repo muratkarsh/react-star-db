@@ -1,8 +1,12 @@
 import React from 'react'
+import Header from '../header'
+import './app.css'
 
 const App = () => {
     return (
-        <div>Hello StarDB!</div>
+        <div className='app'>
+            <Header />
+        </div>
     )
 }
 
