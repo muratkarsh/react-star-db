@@ -1,0 +1,17 @@
+.error-indicator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-icon {
+    margin-bottom: 25px;
+    width: auto;
+    height: 75px;
+}
+
+.error-title {
+    font-weight: bold;
+    color: tomato;
+}
