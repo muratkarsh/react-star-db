@@ -3,7 +3,7 @@ import './planet-details.scss'
 
 const PlanetDetails = () => {
     return (
-        <div className='planet-details'></div>
+        <div className='planet-details'>planet-details</div>
     )
 }
 
