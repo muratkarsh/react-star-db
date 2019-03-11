@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './person-details.scss'
 import SwapiService from "../../services/swapi-service"
 import Spinner from "../spinner"
+import ErrorButton from "../error-button"
 
 export default class PersonDetails extends Component {
 
@@ -65,6 +66,8 @@ export default class PersonDetails extends Component {
                         <li>Birth year: <span>{birthYear}</span></li>
                         <li>Eye color: <span>{eyeColor}</span></li>
                     </ul>
+
+                    <ErrorButton />
                 </div>
             </div>
         )

@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import './app.scss'
 import Header from '../header'
 import RandomPlanet from '../random-planet'
-import ItemList from "../item-list"
-import PersonDetails from "../person-details"
+import ErrorIndicator from "../error-indicator"
+import PeoplePage from "../people-page"
+import ErrorButton from "../error-button"
 
 export default class App extends Component {
     state = {
         showRandomPlanet: true,
-        selectedPerson: 5
+        hasError: false
     }
 
     toggleRandomPlanet = () => {
@@ -19,13 +20,17 @@ export default class App extends Component {
         })
     }
 
-    onPersonSelected = (id) => {
+    componentDidCatch() {
         this.setState({
-            selectedPerson: id
+            hasError: true
         })
     }
 
     render() {
+        if (this.state.hasError) {
+            return <ErrorIndicator />
+        }
+
         const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null
 
         return (
@@ -39,6 +44,8 @@ export default class App extends Component {
                         >
                             Toggle random planet
                         </button>
+                        
+                        <ErrorButton/>
                     </div>
 
                     <div className="row">
@@ -47,19 +54,7 @@ export default class App extends Component {
                         </div>
                     </div>
 
-                    <div className="row">
-                        <div className="col col-md-12 col-lg-6">
-                            <ItemList
-                                onItemSelected={this.onPersonSelected}
-                            />
-                        </div>
-
-                        <div className="col col-md-12 col-lg-6">
-                            <PersonDetails
-                                personId={this.state.selectedPerson}
-                            />
-                        </div>
-                    </div>
+                    <PeoplePage />
                 </div>
             </div>
         )
