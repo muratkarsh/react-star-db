@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './item-details.scss'
-import SwapiService from "../../services/swapi-service"
 import Spinner from "../spinner"
 import ErrorButton from "../error-button"
 
@@ -12,74 +11,79 @@ const Record = ({ item, field, label }) => {
 
 export { Record }
 
-export default class ItemDetails extends Component {
-    swapiService = new SwapiService()
+const ItemDetails = (props) => {
+    const { name } = props.item
+    const { image, item } = props
 
-    state = {
-        item: null,
-        loading: true,
-        image: null
-    }
+    return (
+        <div className='item-details app__card'>
+            <img className='item-details__img' src={image} alt="character"/>
+            <div className='item-details__info'>
+                <h3>{name}</h3>
 
-    componentDidMount() {
-        this.updateItem()
-    }
+                <ul>
+                    {
+                        React.Children.map(props.children, child => {
+                            return React.cloneElement(child, { item })
+                        })
+                    }
+                </ul>
 
-    componentDidUpdate(prevProps) {
-        if (this.props.itemId !== prevProps.itemId) {
+                <ErrorButton />
+            </div>
+        </div>
+    )
+}
+
+const hocDetails = (View) => {
+    return class extends Component {
+        state = {
+            item: null,
+            image: null,
+            loading: true
+        }
+
+        componentDidMount() {
             this.updateItem()
         }
-    }
 
-    updateItem = () => {
-        this.setState({loading: true})
-
-        const { itemId, getData, getImageUrl } = this.props
-
-        if (!itemId) {
-            return
+        componentDidUpdate(prevProps) {
+            if (this.props.itemId !== prevProps.itemId) {
+                this.updateItem()
+            }
         }
 
-        getData(itemId)
-            .then(item => {
-                this.setState({
-                    item,
-                    loading: false,
-                    image: getImageUrl(item)
+        updateItem = () => {
+            this.setState({loading: true})
+
+            const { itemId, getData, getImageUrl } = this.props
+
+            if (!itemId) {
+                return
+            }
+
+            getData(itemId)
+                .then(item => {
+                    this.setState({
+                        item,
+                        loading: false,
+                        image: getImageUrl(item)
+                    })
                 })
-            })
-    }
-
-
-    render() {
-        if (this.state.loading) {
-            return <Spinner />
         }
 
-        if (!this.state.item) {
-            return <span>Select a item from a list</span>
+        render() {
+            if (this.state.loading) {
+                return <Spinner />
+            }
+
+            if (!this.state.item) {
+                return <span>Select a item from a list</span>
+            }
+
+            return <View {...this.props} item={this.state.item} image={this.state.image} />
         }
-
-        const { name } = this.state.item
-        const { image, item } = this.state
-
-        return (
-            <div className='item-details app__card'>
-                <img className='item-details__img' src={image} alt="character"/>
-                <div className='item-details__info'>
-                    <h3>{name}</h3>
-
-                    <ul>
-                        {
-                            React.Children.map(this.props.children, child => {
-                                return React.cloneElement(child, { item })
-                            })
-                        }
-                    </ul>
-
-                    <ErrorButton />
-                </div>
-            </div>
-        )
     }
 }
+
+export default hocDetails(ItemDetails)
