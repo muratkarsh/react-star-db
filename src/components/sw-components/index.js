@@ -5,10 +5,11 @@ import {
 } from './item-lists'
 
 import {
-    PersonDetails,
     PlanetDetails,
-    StarshipDetails
+    StarshipDetails,
 } from './item-details'
+
+import PersonDetails from './person-details'
 
 export {
     PersonList,

@@ -2,24 +2,6 @@ import React from 'react'
 import ItemDetails, { Record } from "../item-details"
 import { SwapiServiceConsumer } from "../swapi-service-context"
 
-const PersonDetails = () => (
-    <SwapiServiceConsumer>
-        {({ getPerson, getPersonImage }) => {
-            return (
-                <ItemDetails
-                    itemId={5}
-                    getData={getPerson}
-                    getImageUrl={getPersonImage}
-                >
-                    <Record field="gender" label="Gender" />
-                    <Record field="birthYear" label="Birth year" />
-                    <Record field="eyeColor" label="Eye color" />
-                </ItemDetails>
-            )
-        }}
-    </SwapiServiceConsumer>
-)
-
 const PlanetDetails = () => (
     <SwapiServiceConsumer>
         {(swapiService) => {
@@ -58,7 +40,6 @@ const StarshipDetails = () => (
 )
 
 export {
-    PersonDetails,
     PlanetDetails,
     StarshipDetails
 }
