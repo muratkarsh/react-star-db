@@ -61,17 +61,17 @@ export default class App extends Component {
                         <Header />
 
                         <Row
-                            left={<PersonList>{({ name }) => name}</PersonList>}
+                            left={<PersonList />}
                             right={<PersonDetails />}
                         />
 
                         <Row
-                            left={<PlanetList>{({ name }) => name}</PlanetList>}
+                            left={<PlanetList />}
                             right={<PlanetDetails />}
                         />
 
                         <Row
-                            left={<StarshipList>{({ name }) => name}</StarshipList>}
+                            left={<StarshipList />}
                             right={<StarshipDetails />}
                         />
 
