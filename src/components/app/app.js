@@ -6,13 +6,22 @@ import ErrorIndicator from "../error-indicator"
 import SwapiService from "../../services/swapi-service"
 import Row from "../row"
 import ItemDetails, { Record } from "../item-details"
+import ErrorBoundary from "../error-boundary"
+import ItemList from "../item-list"
 
 export default class App extends Component {
     swapiService = new SwapiService()
 
     state = {
         showRandomPlanet: true,
-        hasError: false
+        hasError: false,
+        selectedPerson: 5
+    }
+
+    onPersonSelected = (id) => {
+        this.setState({
+            selectedPerson: id
+        })
     }
 
     toggleRandomPlanet = () => {
@@ -34,11 +43,11 @@ export default class App extends Component {
             return <ErrorIndicator />
         }
 
-        const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null
+        // const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null
 
         const personDetails = (
             <ItemDetails
-                itemId={11}
+                itemId={this.state.selectedPerson}
                 getData={this.swapiService.getPerson}
                 getImageUrl={this.swapiService.getPersonImage}
             >
@@ -60,30 +69,26 @@ export default class App extends Component {
             </ItemDetails>
         )
 
+        const personList = (
+            <ItemList
+                getData={this.swapiService.getAllPeople}
+                itemId={this.state.selectedPerson}
+                onItemSelected={this.onPersonSelected}
+            >
+                {(item) => {
+                    return item.name
+                }}
+            </ItemList>
+        )
+
         return (
             <div className='app'>
                 <div className="container">
                     <Header />
 
-                    <Row
-                        left={personDetails}
-                        right={starshipDetails}
-                    >
-
-                    </Row>
-
-                    {/*<div className="row">*/}
-                        {/*<button onClick={this.toggleRandomPlanet}>Toggle random planet</button>*/}
-                        {/*<ErrorButton/>*/}
-                    {/*</div>*/}
-
-                    {/*<div className="row">*/}
-                        {/*<div className="col col-xs-12">*/}
-                            {/*{planet}*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-
-                    {/*<PeoplePage />*/}
+                    <ErrorBoundary>
+                        <Row left={personList} right={personDetails} />
+                    </ErrorBoundary>
                 </div>
             </div>
         )

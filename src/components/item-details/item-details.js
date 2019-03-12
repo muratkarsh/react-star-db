@@ -69,11 +69,13 @@ export default class ItemDetails extends Component {
                 <div className='item-details__info'>
                     <h3>{name}</h3>
 
-                    {
-                        React.Children.map(this.props.children, child => {
-                            return React.cloneElement(child, { item })
-                        })
-                    }
+                    <ul>
+                        {
+                            React.Children.map(this.props.children, child => {
+                                return React.cloneElement(child, { item })
+                            })
+                        }
+                    </ul>
 
                     <ErrorButton />
                 </div>
