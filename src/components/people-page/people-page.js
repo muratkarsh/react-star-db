@@ -1,27 +1,21 @@
 import React, { Component } from  'react'
 import ItemList from "../item-list"
-import PersonDetails from "../person-details"
+import ItemDetails from "../item-details"
 import ErrorIndicator from "../error-indicator"
 import SwapiService from "../../services/swapi-service"
 import Row from '../row'
+import ErrorBoundary from '../error-boundary'
 
 export default class PeoplePage extends Component {
     swapiService = new SwapiService()
 
     state = {
-        selectedPerson: 5,
-        hasError: false
+        selectedPerson: 5
     }
 
     onPersonSelected = (id) => {
         this.setState({
             selectedPerson: id
-        })
-    }
-
-    componentDidCatch() {
-        this.setState({
-            hasError: true
         })
     }
 
@@ -42,9 +36,12 @@ export default class PeoplePage extends Component {
         )
 
         const personDetails = (
-            <PersonDetails
-                personId={this.state.selectedPerson}
-            />
+            <ErrorBoundary>
+                <ItemDetails
+                    itemId={this.state.selectedPerson}
+                />
+            </ErrorBoundary>
+
         )
 
         return (

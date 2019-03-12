@@ -3,14 +3,11 @@ import './app.scss'
 import Header from '../header'
 import RandomPlanet from '../random-planet'
 import ErrorIndicator from "../error-indicator"
-import PeoplePage from "../people-page"
-import ErrorButton from "../error-button"
 import SwapiService from "../../services/swapi-service"
-// import ItemList from "../item-list"
-// import PlanetDetails from "../planet-details"
+import Row from "../row"
+import ItemDetails, { Record } from "../item-details"
 
 export default class App extends Component {
-
     swapiService = new SwapiService()
 
     state = {
@@ -39,60 +36,54 @@ export default class App extends Component {
 
         const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null
 
+        const personDetails = (
+            <ItemDetails
+                itemId={11}
+                getData={this.swapiService.getPerson}
+                getImageUrl={this.swapiService.getPersonImage}
+            >
+                <Record field="gender" label="Gender" />
+                <Record field="birthYear" label="Birth year" />
+                <Record field="eyeColor" label="Eye color" />
+            </ItemDetails>
+        )
+
+        const starshipDetails = (
+            <ItemDetails
+                itemId={5}
+                getData={this.swapiService.getStarship}
+                getImageUrl={this.swapiService.getStarshipImage}
+            >
+                <Record field='model' label='Model' />
+                <Record field='length' label='Length' />
+                <Record field='costInCredits' label='Cost' />
+            </ItemDetails>
+        )
+
         return (
             <div className='app'>
                 <div className="container">
                     <Header />
 
-                    <div className="row">
-                        <button
-                            onClick={this.toggleRandomPlanet}
-                        >
-                            Toggle random planet
-                        </button>
+                    <Row
+                        left={personDetails}
+                        right={starshipDetails}
+                    >
 
-                        <ErrorButton/>
-                    </div>
-
-                    <div className="row">
-                        <div className="col col-xs-12">
-                            {planet}
-                        </div>
-                    </div>
-
-                    <PeoplePage />
+                    </Row>
 
                     {/*<div className="row">*/}
-                        {/*<div className="col col-md-12 col-lg-6">*/}
-                            {/*<ItemList*/}
-                                {/*onItemSelected={this.onPersonSelected}*/}
-                                {/*getData={this.swapiService.getAllPlanets}*/}
-                                {/*renderItem={(item) => <span>{item.name}<button>!</button></span>}*/}
-                            {/*/>*/}
-                        {/*</div>*/}
-
-                        {/*<div className="col col-md-12 col-lg-6">*/}
-                            {/*<PlanetDetails*/}
-                                {/*personId={this.state.selectedPerson}*/}
-                            {/*/>*/}
-                        {/*</div>*/}
+                        {/*<button onClick={this.toggleRandomPlanet}>Toggle random planet</button>*/}
+                        {/*<ErrorButton/>*/}
                     {/*</div>*/}
 
                     {/*<div className="row">*/}
-                        {/*<div className="col col-md-12 col-lg-6">*/}
-                            {/*<ItemList*/}
-                                {/*onItemSelected={this.onPersonSelected}*/}
-                                {/*getData={this.swapiService.getAllStarships}*/}
-                                {/*renderItem={(item) => item.name}*/}
-                            {/*/>*/}
-                        {/*</div>*/}
-
-                        {/*<div className="col col-md-12 col-lg-6">*/}
-                            {/*<PlanetDetails*/}
-                                {/*personId={this.state.selectedPerson}*/}
-                            {/*/>*/}
+                        {/*<div className="col col-xs-12">*/}
+                            {/*{planet}*/}
                         {/*</div>*/}
                     {/*</div>*/}
+
+                    {/*<PeoplePage />*/}
                 </div>
             </div>
         )
