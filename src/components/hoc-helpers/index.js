@@ -1,3 +1,3 @@
-import withData from './with-data'
+import withDataLists from './with-data-lists'
 
-export { withData }
+export { withDataLists }

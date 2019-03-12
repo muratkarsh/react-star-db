@@ -1,6 +1,6 @@
 import React from "react"
 import ItemList from '../item-list'
-import { withData } from '../hoc-helpers'
+import { withDataLists } from '../hoc-helpers'
 import SwapiService from '../../services/swapi-service'
 
 const swapiService = new SwapiService()
@@ -24,15 +24,15 @@ const withChildFunction = (Wrapped, fn) => {
 const renderName = ({ name }) => <span>{name}</span>
 const renderModelAndName = ({ name, model }) => <span>{name} ({model})</span>
 
-const PersonList = withData(
+const PersonList = withDataLists(
                     withChildFunction(ItemList, renderName),
                     getAllPeople)
 
-const PlanetList = withData(
+const PlanetList = withDataLists(
                     withChildFunction(ItemList, renderName),
                     getAllPlanets)
 
-const StarshipList = withData(
+const StarshipList = withDataLists(
                         withChildFunction(ItemList, renderModelAndName),
                         getAllStarships)
 

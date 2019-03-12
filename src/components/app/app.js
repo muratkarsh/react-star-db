@@ -7,6 +7,7 @@ import ErrorIndicator from "../error-indicator"
 import SwapiService from "../../services/swapi-service"
 import Row from "../row"
 import ErrorBoundary from "../error-boundary"
+import { SwapiServiceProvider } from "../swapi-service-context"
 
 import {
     PersonList,
@@ -58,23 +59,12 @@ export default class App extends Component {
             <div className='app'>
                 <div className="container">
                     <ErrorBoundary>
-                        <Header />
-
-                        <Row
-                            left={<PersonList />}
-                            right={<PersonDetails />}
-                        />
-
-                        <Row
-                            left={<PlanetList />}
-                            right={<PlanetDetails />}
-                        />
-
-                        <Row
-                            left={<StarshipList />}
-                            right={<StarshipDetails />}
-                        />
-
+                        <SwapiServiceProvider value={this.swapiService}>
+                            <Header />
+                            <Row left={<PersonList />} right={<PersonDetails />}/>
+                            <Row left={<PlanetList />} right={<PlanetDetails />}/>
+                            <Row left={<StarshipList />} right={<StarshipDetails />}/>
+                        </SwapiServiceProvider>
                     </ErrorBoundary>
                 </div>
             </div>
