@@ -8,6 +8,9 @@ import ErrorBoundary from "../error-boundary"
 import { SwapiServiceProvider } from "../swapi-service-context"
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages'
 
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import StarshipDetails from "../sw-components/starship-details"
+
 
 export default class App extends Component {
     swapiService = new SwapiService()
@@ -35,14 +38,24 @@ export default class App extends Component {
                 <div className="container">
                     <ErrorBoundary>
                         <SwapiServiceProvider value={this.swapiService}>
-                            <Header />
+                            <Router>
+                                <div className="app__wrapper">
+                                    <Header />
+                                    {planet}
 
-                            {planet}
+                                    <Route exact path='/' render={() => <h1>Welcome to StarDB</h1>} />
+                                    <Route path='/people' component={PeoplePage} />
+                                    <Route path='/planets' component={PlanetsPage} />
+                                    <Route exact path='/starships' component={StarshipsPage} />
+                                    <Route path='/starships/:id'
+                                           render={({ match }) => {
+                                               const { id } = match.params
 
-                            <PeoplePage />
-                            <PlanetsPage />
-                            <StarshipsPage />
-
+                                               return <StarshipDetails itemId={id} />
+                                           }}
+                                    />
+                                </div>
+                            </Router>
                         </SwapiServiceProvider>
                     </ErrorBoundary>
                 </div>

@@ -15,7 +15,6 @@ export default class RandomPlanet extends Component {
         updateInterval: PropTypes.number
     }
 
-
     swapiService = new SwapiService()
 
     state = {
