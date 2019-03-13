@@ -1,15 +1,6 @@
 import React from "react"
 import ItemList from '../item-list'
-import { withDataLists } from '../hoc-helpers'
-import SwapiService from '../../services/swapi-service'
-
-const swapiService = new SwapiService()
-
-const {
-    getAllPeople,
-    getAllPlanets,
-    getAllStarships
-} = swapiService
+import { withDataLists, withSwapiService } from '../hoc-helpers'
 
 const withChildFunction = (Wrapped, fn) => {
     return (props) => {
@@ -21,20 +12,41 @@ const withChildFunction = (Wrapped, fn) => {
     }
 }
 
+const mapPersonMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getAllPeople
+    }
+}
+
+const mapPlanetMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getAllPlanets
+    }
+}
+
+const mapStarshipMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getAllStarships
+    }
+}
+
 const renderName = ({ name }) => <span>{name}</span>
 const renderModelAndName = ({ name, model }) => <span>{name} ({model})</span>
 
-const PersonList = withDataLists(
-                    withChildFunction(ItemList, renderName),
-                    getAllPeople)
+const PersonList = withSwapiService(
+                    withDataLists(
+                        withChildFunction(ItemList, renderName)),
+                    mapPersonMethodsToProps)
 
-const PlanetList = withDataLists(
-                    withChildFunction(ItemList, renderName),
-                    getAllPlanets)
+const PlanetList = withSwapiService(
+                    withDataLists(
+                        withChildFunction(ItemList, renderName)),
+                    mapPlanetMethodsToProps)
 
-const StarshipList = withDataLists(
-                        withChildFunction(ItemList, renderModelAndName),
-                        getAllStarships)
+const StarshipList = withSwapiService(
+                    withDataLists(
+                        withChildFunction(ItemList, renderModelAndName)),
+                    mapStarshipMethodsToProps)
 
 export {
     PersonList,
