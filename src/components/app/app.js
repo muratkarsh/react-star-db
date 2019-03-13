@@ -10,6 +10,8 @@ import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages'
 
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import StarshipDetails from "../sw-components/starship-details"
+import LoginPage from "../pages/login-page"
+import SecretPage from '../pages/secret-page'
 
 
 export default class App extends Component {
@@ -17,12 +19,19 @@ export default class App extends Component {
 
     state = {
         showRandomPlanet: true,
-        hasError: false
+        hasError: false,
+        isLoggedIn: false
     }
 
     componentDidCatch() {
         this.setState({
             hasError: true
+        })
+    }
+
+    onLogin = () => {
+        this.setState({
+            isLoggedIn: true
         })
     }
 
@@ -53,6 +62,24 @@ export default class App extends Component {
 
                                                return <StarshipDetails itemId={id} />
                                            }}
+                                    />
+
+                                    <Route
+                                        path='/login'
+                                        render={() => {
+                                            return (
+                                                <LoginPage
+                                                    isLoggedIn={this.state.isLoggedIn}
+                                                    onLogin={this.onLogin}
+                                                />
+                                                )
+                                        }}
+                                    />
+                                    <Route
+                                        path='/secret'
+                                        render={() => (
+                                            <SecretPage isLoggedIn={this.state.isLoggedIn} />
+                                        )}
                                     />
                                 </div>
                             </Router>
