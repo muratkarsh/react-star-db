@@ -3,8 +3,19 @@ import './random-planet.scss'
 import SwapiService from '../../services/swapi-service.js'
 import Spinner from '../spinner'
 import ErrorIndicator from "../error-indicator"
+import PropTypes from 'prop-types'
 
 export default class RandomPlanet extends Component {
+
+    static defaultProps = {
+        updateInterval: 2000
+    }
+
+    static propTypes = {
+        updateInterval: PropTypes.number
+    }
+
+
     swapiService = new SwapiService()
 
     state = {
@@ -59,10 +70,6 @@ export default class RandomPlanet extends Component {
                 { content }
             </div>
         )
-    }
-
-    static defaultProps = {
-        updateInterval: 2000
     }
 }
 
