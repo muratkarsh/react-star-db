@@ -11,9 +11,9 @@ const Header = () => {
 
             <div className='navigation'>
                 <ul>
-                    <li><Link to="/people">People</Link></li>
-                    <li><Link to="/planets">Planets</Link></li>
-                    <li><Link to="/starships">Starships</Link></li>
+                    <li><Link to="/people/">People</Link></li>
+                    <li><Link to="/planets/">Planets</Link></li>
+                    <li><Link to="/starships/">Starships</Link></li>
                 </ul>
             </div>
         </div>
