@@ -28,7 +28,7 @@ export default class App extends Component {
             return <ErrorIndicator />
         }
 
-        const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null
+        const planet = this.state.showRandomPlanet ? <RandomPlanet updateInterval={5000} /> : null
 
         return (
             <div className='app'>
