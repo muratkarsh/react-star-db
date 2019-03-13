@@ -8,7 +8,7 @@ import ErrorBoundary from "../error-boundary"
 import { SwapiServiceProvider } from "../swapi-service-context"
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages'
 
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import StarshipDetails from "../sw-components/starship-details"
 import LoginPage from "../pages/login-page"
 import SecretPage from '../pages/secret-page'
@@ -52,35 +52,38 @@ export default class App extends Component {
                                     <Header />
                                     {planet}
 
-                                    <Route exact path='/' render={() => <h1>Welcome to StarDB</h1>} />
-                                    <Route path='/people/:id?' component={PeoplePage} />
-                                    <Route path='/planets' component={PlanetsPage} />
-                                    <Route exact path='/starships' component={StarshipsPage} />
-                                    <Route path='/starships/:id'
-                                           render={({ match }) => {
-                                               const { id } = match.params
+                                    <Switch>
+                                        <Route exact path='/' render={() => <h1>Welcome to StarDB</h1>} />
+                                        <Route path='/people/:id?' component={PeoplePage} />
+                                        <Route path='/planets' component={PlanetsPage} />
+                                        <Route exact path='/starships' component={StarshipsPage} />
+                                        <Route path='/starships/:id'
+                                               render={({ match }) => {
+                                                   const { id } = match.params
 
-                                               return <StarshipDetails itemId={id} />
-                                           }}
-                                    />
+                                                   return <StarshipDetails itemId={id} />
+                                               }}
+                                        />
 
-                                    <Route
-                                        path='/login'
-                                        render={() => {
-                                            return (
+                                        <Route
+                                            path='/login'
+                                            render={() => (
                                                 <LoginPage
                                                     isLoggedIn={this.state.isLoggedIn}
                                                     onLogin={this.onLogin}
                                                 />
-                                                )
-                                        }}
-                                    />
-                                    <Route
-                                        path='/secret'
-                                        render={() => (
-                                            <SecretPage isLoggedIn={this.state.isLoggedIn} />
-                                        )}
-                                    />
+                                            )}
+                                        />
+                                        <Route
+                                            path='/secret'
+                                            render={() => (
+                                                <SecretPage isLoggedIn={this.state.isLoggedIn} />
+                                            )}
+                                        />
+
+                                        <Route render={() => <h2>Page not found</h2>} />
+                                        {/*<Redirect to='/' />*/}
+                                    </Switch>
                                 </div>
                             </Router>
                         </SwapiServiceProvider>
